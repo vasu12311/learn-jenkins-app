@@ -18,5 +18,35 @@ pipeline {
                 sh 'ls -la'
             }
         }
+
+        stage('Tests') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+
+            steps {
+                sh '''
+                    npm test
+                '''    
+            }
+                
+            
+        }
+
+        stage('deploy'){
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                }
+            }
+            steps{
+                sh '''
+                  npm install netlify-cli -g
+                  netlify --version
+            } 
+        }       
     }
 }
