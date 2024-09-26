@@ -14,7 +14,7 @@ pipeline {
                 }
             }
             steps{
-                sh 'echo "with docker"'
+                sh 'echo "small change"'
                 sh 'ls -la'
                 sh 'node --version'
                 sh 'npm --version'
