@@ -10,6 +10,7 @@ pipeline {
 
         stage('docker'){
             steps{
+                sh 'docker login -u vasu12311 -p ManuVasu@12345'
                 sh 'docker build -t my-playwright .'
             }
         }
