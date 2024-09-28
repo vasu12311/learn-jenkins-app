@@ -10,7 +10,6 @@ pipeline {
 
         stage('docker'){
             steps{
-                sh 'unset DOCKER_HOST'
                 sh 'docker build -t my-playwright .'
             }
         }
