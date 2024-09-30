@@ -1,69 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        NETLIFY_SITE_ID = 'a5728181-d4c1-4d70-8116-11340131cfef'
-        NETLIFY_AUTH_TOKEN = credentials('netlify-token')
-    }
-
     stages {
 
-        stage('build'){
-            agent{
-                docker{
-                    image 'node:18-alpine'
-                }
-            }
+        stage('docker'){
             steps{
-                sh 'echo "small change"'
-                sh 'ls -la'
-                sh 'node --version'
-                sh 'npm --version'
-                sh 'npm ci'
-                sh 'npm run build'
-                sh 'ls -la'
+                sh 'docker build -t my-playwright .'
             }
-        }
-
-        stage('Deploy stage'){
-            agent{
-                docker{
-                    image 'node:18-alpine'
-                }
-            }
-            steps{
-                sh '''
-                    npm install netlify-cli node-jq
-                    node_modules/.bin/netlify --version
-                    echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=build --json > deploy-output.json
-                     node_modules/.bin/node-jq -r '.deploy_url' deploy-output.json
-                '''
-            } 
-        }
-
-        stage('Approval') {
-            steps {
-                timeout(time: 15, unit: 'MINUTES') {
-                    input message: 'Do you wish to deploy to production?' , ok: 'Yes, I am sure!'
-                }
-            }
-        }      
-
-        stage('Deploy Prod'){
-            agent{
-                docker{
-                    image 'node:18-alpine'
-                }
-            }
-            steps{
-                sh 'npm install netlify-cli'
-                sh 'node_modules/.bin/netlify --version'
-                sh 'echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"' 
-                sh 'node_modules/.bin/netlify status'
-                sh 'node_modules/.bin/netlify deploy --dir=build --prod'
-            } 
-        }      
+        }     
     }
 }
