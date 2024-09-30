@@ -3,15 +3,16 @@ pipeline {
 
     stages {
 
-        stage('build'){
+        stage('AZURE'){
             agent{
                 docker{
-                    image 'node:18-alpine'
+                    image 'bitnami/azure-cli'
+                    args "--entrypoint=''"
                 }
             }
 
             steps{
-                sh 'docker build -t my-playwright .'
+                sh 'az --version'
             }
         }     
     }
