@@ -12,7 +12,7 @@ pipeline {
             }
 
             steps{
-                sh 'az --version'
+                sh 'az version'
             }
         }     
     }
