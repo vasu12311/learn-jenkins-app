@@ -3,7 +3,10 @@ pipeline {
 
     stages {
 
-        stage('docker'){
+        stage('build'){
+            docker{
+                image 'node:18-alpine'
+            }
             steps{
                 sh 'docker build -t my-playwright .'
             }
