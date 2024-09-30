@@ -13,7 +13,8 @@ pipeline {
 
             steps{
                 sh '''
-                   sudo az version
+                   sudo chown -R $USER:$USER $HOME/.azure/
+                   az version
                 '''   
             }
         }     
