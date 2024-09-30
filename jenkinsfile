@@ -7,13 +7,12 @@ pipeline {
             agent{
                 docker{
                     image 'bitnami/azure-cli'
-                    args "--entrypoint=''"
+                    args "--user root --privileged"
                 }
             }
 
             steps{
                 sh '''
-                   sudo chown -R $USER:$USER $HOME/.azure/
                    az version
                 '''   
             }
