@@ -12,7 +12,14 @@ pipeline {
             }
 
             steps{
-                sh 'az version'
+                sh '''
+                   sudo chmod 777 $HOME/.azure/az.sess
+                   sudo chmod 444 $HOME/.azure/config
+                   sudo chmod 777 $HOME/.azure/versionCheck.json
+                   sudo chmod 777 $HOME/.azure/commandIndex.json
+                   sudo chmod 777 $HOME/.azure/*
+                   az version
+                '''   
             }
         }     
     }
