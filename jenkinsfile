@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+       AZURE_SUBSCRIPTION_ID='827ab5a9-3b99-4a11-8fbe-680310381168'
+       AZURE_TENANT_ID='4466279b-366c-47b9-8275-0312e65b42c5'
+       AZURE_STORAGE_ACCOUNT='jenkins123'
+    }
 
     stages {
 
@@ -14,8 +19,10 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId: 'my-jenkins', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
                     sh '''
-                       az group create --name jenkins-get-started-rg --location eastus
-                       az version
+                       echo "Hello s3" > index.html
+                       az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
+                       az account set --subscription $AZURE_SUBSCRIPTION_ID
+                       az storage container create --account-name $AZURE_STORAGE_ACCOUNT --name manu-container --auth-mode login
                     '''  
                 }
             }
