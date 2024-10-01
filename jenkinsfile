@@ -11,16 +11,14 @@ pipeline {
                 }
             }
 
-            environment{
-                MY_CRED = credentials('my-jenkins')
-            }
-
             steps{
-                sh '''
-                   az login
+
+                withCredentials([usernamePassword(credentialsId: 'my-jenkins', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
+                   sh '''
                    az group create --name jenkins-get-started-rg --location eastus
                    az version
-                '''   
+                '''  
+                }  
             }
         }     
     }
