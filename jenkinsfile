@@ -12,13 +12,7 @@ pipeline {
             }
 
             steps{
-
-                withCredentials([usernamePassword(credentialsId: 'my-jenkins', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
-                   sh '''
-                       az group create --name jenkins-get-started-rg --location eastus
-                       az version
-                    '''  
-                }  
+                sh 'az version'
             }
         }     
     }
