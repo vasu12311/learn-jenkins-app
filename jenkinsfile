@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('AZURE'){
+        stage('Build'){
             agent{
                 docker{
                     image 'bitnami/azure-cli'
