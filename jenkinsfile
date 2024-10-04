@@ -13,7 +13,6 @@ pipeline {
                 docker{
                     image 'bitnami/azure-cli'
                     args "--user root --privileged"
-                    args "--entrypoint=''"
                 }
             }
 
