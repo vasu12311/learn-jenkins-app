@@ -17,14 +17,14 @@ pipeline {
             }
 
             steps{
-                withCredentials([usernamePassword(credentialsId: 'vasantha', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
+                withCredentials([usernamePassword(credentialsId: 'manoj123', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
                     sh '''
                        echo "Hello s3" > index.html
                        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
                        az account set --subscription $AZURE_SUBSCRIPTION_ID
                        az storage container create --account-name $AZURE_STORAGE_ACCOUNT --name manu-container --auth-mode login
-                    '''  
-                }
+                    '''
+                }  
             }
         }     
     }
