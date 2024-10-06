@@ -17,7 +17,7 @@ pipeline {
             }
 
             steps{
-                withCredentials([usernamePassword(credentialsId: 'manoj123', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
+                withCredentials([usernamePassword(credentialsId: 'bablu123', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
                     sh '''
                        echo "Hello s3" > index.html
                        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
